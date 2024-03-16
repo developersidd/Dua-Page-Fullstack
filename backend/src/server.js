@@ -1,8 +1,8 @@
 // Dependencies
-import express from "express";
-import CategoryRouter from "./routes/category.route.js";
-import DuaRouter from "./routes/dua.route.js";
-import SubCategoryRouter from "./routes/subCategory.route.js";
+const express = require("express");
+const CategoryRouter = require("./routes/category.route");
+const DuaRouter = require("./routes/dua.route");
+const SubCategoryRouter = require("./routes/subCategory.route");
 const app = express();
 // routes
 

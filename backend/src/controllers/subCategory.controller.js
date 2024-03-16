@@ -1,7 +1,8 @@
-import db from "../db/connectDb.js";
+const db = require("../../connectDb");
 
 const getSubCategories = (req, res, next) => {
   const sql = "select * from sub_category";
+  console.log("sql:", sql);
   const params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {
@@ -16,4 +17,4 @@ const getSubCategories = (req, res, next) => {
   });
 };
 
-export { getSubCategories };
+module.exports = { getSubCategories };

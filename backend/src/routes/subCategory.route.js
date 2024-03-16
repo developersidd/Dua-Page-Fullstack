@@ -1,8 +1,8 @@
-import express from "express";
-import { getSubCategories } from "../controllers/subCategory.controller.js";
+const express = require("express");
+const { getSubCategories } = require("../controllers/subCategory.controller");
 
 const router = express.Router();
 // get all categories
-router.get("/api/v1/sub_categories", getSubCategories);
+router.get("/", getSubCategories);
 
-export default router;
+module.exports = router;

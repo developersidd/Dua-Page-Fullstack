@@ -1,4 +1,5 @@
-import db from "../db/connectDb.js";
+const db = require("../../connectDb.js");
+console.log("db:", db);
 
 const getCategories = (req, res, next) => {
   const sql = "select * from category";
@@ -15,4 +16,4 @@ const getCategories = (req, res, next) => {
   });
 };
 
-export { getCategories };
+module.exports = { getCategories };

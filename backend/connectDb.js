@@ -1,6 +1,6 @@
-import sqlite3 from "sqlite3";
-sqlite3.verbose();
-const DBSOURCE = "./dua_main.sqlite";
+const sqlite3 = require("sqlite3").verbose();
+//const DBSOURCE = "db.dua_main.sqlite";
+const DBSOURCE = "../backend/src/db/dua_main.sqlite";
 
 let db = new sqlite3.Database(DBSOURCE, (err) => {
   if (err) {
@@ -12,4 +12,4 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
   }
 });
 
-export default db;
+module.exports = db;

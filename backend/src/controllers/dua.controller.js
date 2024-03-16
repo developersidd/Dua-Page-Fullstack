@@ -1,11 +1,12 @@
-import db from "../db/connectDb.js";
+const db = require("../../connectDb");
 
 const getDuas = (req, res, next) => {
-  var sql = "select * from dua";
-  var params = [];
+  const sql = "select * from dua";
+  const params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {
-      res.status(400).json({ error: err.message });
+      console.error("Error retrieving duas:", err.message);
+      res.status(500).json({ error: "Error retrieving duas." });
       return;
     }
     res.status(200).json({
@@ -16,4 +17,4 @@ const getDuas = (req, res, next) => {
   });
 };
 
-export { getDuas };
+module.exports = { getDuas };
