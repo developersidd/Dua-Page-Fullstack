@@ -10,13 +10,13 @@ const app = express();
 app.get("/", (req, res, next) => {
   res.json({ message: `App is Running on port ${HTTP_PORT}` });
 });
-app.use("/api/v1/categories", CategoryRouter);
-app.use("/api/v1/sub_categories", SubCategoryRouter);
-app.use("/api/v1/duas", DuaRouter);
+app.use("/api/v1/category", CategoryRouter);
+app.use("/api/v1/subcategory", SubCategoryRouter);
+app.use("/api/v1/dua", DuaRouter);
 
 // Default response for any other request
 app.use(function (req, res) {
-  res.status(404);
+  res.status(404).json({ message: "Route not found" });
 });
 
 // Server port

@@ -1,5 +1,4 @@
 const db = require("../../connectDb.js");
-console.log("db:", db);
 
 const getCategories = (req, res, next) => {
   const sql = "select * from category";

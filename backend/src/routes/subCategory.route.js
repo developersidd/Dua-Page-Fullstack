@@ -3,6 +3,6 @@ const { getSubCategories } = require("../controllers/subCategory.controller");
 
 const router = express.Router();
 // get all categories
-router.get("/", getSubCategories);
+router.get("/:id", getSubCategories);
 
 module.exports = router;

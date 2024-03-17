@@ -1,8 +1,8 @@
 const db = require("../../connectDb");
 
 const getDuas = (req, res, next) => {
-  const sql = "select * from dua";
-  const params = [];
+  const sql = "select * from dua where cat_id = ?";
+  const params = [req.params.id];
   db.all(sql, params, (err, rows) => {
     if (err) {
       console.error("Error retrieving duas:", err.message);
