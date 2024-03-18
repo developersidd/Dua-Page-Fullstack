@@ -8,11 +8,11 @@ const icons = [
     icon: "language",
     children: () => {
       return (
-        <div className="mt-2 p-4">
-          <button className="px-7 text-sm py-2 rounded-md bg-primary text-white border mr-5">
-            Englist
+        <div className="mt-2 p-4 mx-auto text-center">
+          <button className="px-8 text-sm py-2 rounded-md bg-primary text-white  mr-3">
+            English
           </button>
-          <button className="px-7 text-sm py-2 rounded-md border">বাংলা</button>
+          <button className="px-8 text-sm py-2 rounded-md border">বাংলা</button>
         </div>
       );
     },

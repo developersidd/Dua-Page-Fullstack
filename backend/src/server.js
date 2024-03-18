@@ -4,7 +4,10 @@ const CategoryRouter = require("./routes/category.route");
 const DuaRouter = require("./routes/dua.route");
 const SubCategoryRouter = require("./routes/subCategory.route");
 const app = express();
-// routes
+const cors = require("cors");
+
+// Middleware
+app.use(cors());
 
 // Root endpoint
 app.get("/", (req, res, next) => {

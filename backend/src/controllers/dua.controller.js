@@ -5,7 +5,6 @@ const getDuas = (req, res, next) => {
   const params = [req.params.id];
   db.all(sql, params, (err, rows) => {
     if (err) {
-      console.error("Error retrieving duas:", err.message);
       res.status(500).json({ error: "Error retrieving duas." });
       return;
     }
