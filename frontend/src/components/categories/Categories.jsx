@@ -5,12 +5,14 @@ import CategoryList from "./CategoryList";
 
 const Categories = () => {
   const [data, setData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:8000/api/v1/category");
       if (!response.ok) {
@@ -19,9 +21,21 @@ const Categories = () => {
       const jsonData = await response.json();
       setData(jsonData); // Set fetched data into state
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
+  // decide what to render
+  let content;
+  if (loading) {
+    content = <div> ...Loading </div>;
+  } else if (error) {
+    content = <div> {error.message}</div>;
+  } else if (!loading && !error && data.data?.length > 0) {
+    content = <CategoryList categories={data.data} />;
+  }
+
   return (
     <div className="overflow-y-auto">
       <div className="">
@@ -41,9 +55,7 @@ const Categories = () => {
           />
         </div>
       </div>
-      <div className="h-[calc(100vh-300px)] overflow-y-auto p-3">
-        <CategoryList categories={data.data} />
-      </div>
+      <div className="h-[calc(100vh-300px)] overflow-y-auto p-3">{content}</div>
     </div>
   );
 };

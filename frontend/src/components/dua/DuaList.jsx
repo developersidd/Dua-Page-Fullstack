@@ -1,10 +1,17 @@
 "use client";
 import useDuaContext from "@/hooks/useDuaContext";
+import DuaCard from "./DuaCard";
 
 const DuaList = () => {
-  const { state } = useDuaContext();
-  console.log("state:", state);
-  return <div>DuaList</div>;
+  const { state: { duas } = {} } = useDuaContext();
+  //console.log("duas:", duas)
+  return (
+    <div className="space-y-5">
+      {duas.map((dua) => (
+        <DuaCard key={dua.id} dua={dua} />
+      ))}
+    </div>
+  );
 };
 
 export default DuaList;

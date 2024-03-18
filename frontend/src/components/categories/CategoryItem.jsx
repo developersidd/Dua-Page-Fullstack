@@ -1,16 +1,43 @@
+import { actions } from "@/actions";
+import useDuaContext from "@/hooks/useDuaContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Icon from "../common/Icon";
 import SubcategoryList from "./subcategories/SubcategoryList";
-
+const { FETCHED_DUA, FETCHING_DUA, FETCHING_DUA_ERROR, CLEAR_DUA } = actions;
 const CategoryItem = ({ category, onActive, isActive }) => {
+  const { dispatch, state } = useDuaContext();
+  //console.log("state:", state.duas);
+  const router = useRouter();
   const { cat_id, cat_name_en, cat_icon, no_of_subcat, no_of_dua } =
     category || {};
   const [subcategories, setSubcategories] = useState([]);
   useEffect(() => {
+    // Fetch dua by category and subcategory when category is active
     if (isActive) {
+      handleFetchDuaByCategory();
       handleFetchSubcategory();
     }
+    return () => {
+      dispatch({ type: CLEAR_DUA });
+    };
   }, [isActive]);
+  // Fetch dua by category
+  const handleFetchDuaByCategory = async () => {
+    dispatch({ type: FETCHING_DUA });
+    try {
+      const res = await fetch(`http://localhost:8000/api/v1/dua/${cat_id}`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await res.json();
+      dispatch({ type: FETCHED_DUA, payload: data.data });
+    } catch (error) {
+      dispatch({ type: FETCHING_DUA_ERROR, payload: error.message });
+    }
+  };
+  // Fetch subcategory
   const handleFetchSubcategory = async () => {
     try {
       const res = await fetch(
@@ -25,12 +52,17 @@ const CategoryItem = ({ category, onActive, isActive }) => {
       console.log("error:", error);
     }
   };
+
   return (
     <>
-      <div
+      <Link
         onClick={() => onActive(cat_id)}
         key={cat_id}
-        //href={`/${cat_name_en}?cat=${cat_id}`}
+        href={`/?cat_name=${cat_name_en
+          ?.toLowerCase()
+          ?.trim()
+          ?.split(" ")
+          ?.join("-")}&cat_id=${cat_id}`}
         className={`${
           isActive ? "bg-[#E8F0F5]" : ""
         }  hover:bg-[#E8F0F5] block rounded-lg cursor-pointer`}
@@ -58,7 +90,7 @@ const CategoryItem = ({ category, onActive, isActive }) => {
             <small className="text-gray-500">Duas</small>
           </div>
         </div>
-      </div>
+      </Link>
       {subcategories?.length > 0 && isActive && (
         <SubcategoryList subcategories={subcategories} />
       )}

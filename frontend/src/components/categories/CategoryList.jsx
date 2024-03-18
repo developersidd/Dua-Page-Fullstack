@@ -1,9 +1,12 @@
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import CategoryItem from "./CategoryItem";
 
 const CategoryList = ({ categories }) => {
-  const [active, setActive] = useState(1);
-  
+  const searchParams = useSearchParams();
+  const cat_id = searchParams.get("cat_id");
+  const [active, setActive] = useState(Number(cat_id) || 1);
+
   return (
     <div className="space-y-3">
       {categories?.map((category) => (

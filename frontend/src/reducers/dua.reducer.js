@@ -1,6 +1,6 @@
 const { actions } = require("@/actions");
 
-const { FETCHED_DUA, FETCHING_DUA, FETCHING_DUA_ERROR } = actions;
+const { FETCHED_DUA, FETCHING_DUA, FETCHING_DUA_ERROR, CLEAR_DUA } = actions;
 const initialState = {
   duas: [],
   loading: false,
@@ -16,7 +16,6 @@ const duaReducer = (state = initialState, action) => {
       };
     case FETCHED_DUA:
       return {
-        ...state,
         loading: false,
         duas: action.payload,
         error: null,
@@ -28,6 +27,13 @@ const duaReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case CLEAR_DUA: {
+      return {
+        duas: [],
+        loading: false,
+        error: null,
+      };
+    }
     default:
       return state;
   }
