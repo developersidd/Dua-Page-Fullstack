@@ -1,4 +1,5 @@
 "use client";
+import CategoryLoadingSkeleton from "@/ui/CategoryLoadingSkeleton";
 import { useEffect, useState } from "react";
 import Icon from "../common/Icon";
 import CategoryList from "./CategoryList";
@@ -29,8 +30,16 @@ const Categories = () => {
   // decide what to render
   let content;
   if (loading) {
-    content = <div> ...Loading </div>;
-  } else if (error) {
+    content = (
+      <div className="space-y-5">
+        {Array(7)
+          .fill()
+          .map((_, i) => (
+            <CategoryLoadingSkeleton key={i} />
+          ))}
+      </div>
+    );
+  } else if (!loading && error) {
     content = <div> {error.message}</div>;
   } else if (!loading && !error && data.data?.length > 0) {
     content = <CategoryList categories={data.data} />;

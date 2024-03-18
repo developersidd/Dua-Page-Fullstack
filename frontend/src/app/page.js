@@ -19,7 +19,7 @@ export default function Home() {
           <Categories />
         </section>
 
-        <section className="h-[calc(100vh-100px)] overflow-y-auto pb-12">
+        <section className="h-[calc(100vh-100px)] overflow-y-auto pb-12 w-[calc(100vw-915px)]">
           <DuaList />
         </section>
       </DuaProvider>

@@ -1,22 +1,12 @@
 const CategoryLoadingSkeleton = () => {
   return (
-    <div className="bg-gray-500 p-2 sm:p-4 sm:h-64 rounded-2xl shadow-lg flex flex-col sm:flex-row gap-5 select-none ">
-      <div className="h-10 sm:h-full sm:w-72 rounded-xl bg-gray-200 animate-pulse"></div>
-      <div className="flex flex-col flex-1 gap-5 sm:p-2">
-        <div className="flex flex-1 flex-col gap-3">
-          <div className="bg-gray-200 w-full animate-pulse h-14 rounded-2xl"></div>
-          <div className="bg-gray-200 w-full animate-pulse h-3 rounded-2xl"></div>
-          <div className="bg-gray-200 w-full animate-pulse h-3 rounded-2xl"></div>
-          <div className="bg-gray-200 w-full animate-pulse h-3 rounded-2xl"></div>
-          <div className="bg-gray-200 w-full animate-pulse h-3 rounded-2xl"></div>
-        </div>
-        <div className="mt-auto flex gap-3">
-          <div className="bg-gray-200 w-20 h-8 animate-pulse rounded-full"></div>
-          <div className="bg-gray-200 w-20 h-8 animate-pulse rounded-full"></div>
-          <div className="bg-gray-200 w-20 h-8 animate-pulse rounded-full ml-auto"></div>
+    <div className="flex items-center gap-5">
+        <div className="animate-pulse w-[120px] h-[70px] bg-gray-200 rounded-md"></div>
+        <div className="space-y-4">
+          <div className="animate-pulse w-[150px] h-[8px] bg-gray-200 rounded-md"></div>
+          <div className="animate-pulse w-[180px] h-[10px] bg-gray-200 rounded-md"></div>
         </div>
       </div>
-    </div>
   );
 };
 
