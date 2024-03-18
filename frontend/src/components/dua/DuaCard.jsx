@@ -13,13 +13,14 @@ const DuaCard = ({ dua }) => {
     transliteration_en,
     dua_name_en,
     top_en,
+    dua_id,
     id,
     dua_indopak,
     translation_en,
   } = dua || {};
 
   return (
-    <article id={`dua-${id}`} className="w-full bg-white rounded-xl p-7">
+    <article id={`dua-${dua_id}`} className="w-full bg-white rounded-xl p-7">
       <div className="flex items-center gap-3 mb-5">
         <Icon classes={"size-10"} alt={"dua-card"} name={"duacard.svg"} />
         {/* dua_name_en */}
