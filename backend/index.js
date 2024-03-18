@@ -1,8 +1,8 @@
 // Dependencies
 const express = require("express");
-const CategoryRouter = require("./routes/category.route");
-const DuaRouter = require("./routes/dua.route");
-const SubCategoryRouter = require("./routes/subCategory.route");
+const CategoryRouter = require("./src/routes/category.route");
+const DuaRouter = require("./src/routes/dua.route");
+const SubCategoryRouter = require("./src/routes/subCategory.route");
 const app = express();
 const cors = require("cors");
 
@@ -23,7 +23,7 @@ app.use(function (req, res) {
 });
 
 // Server port
-const HTTP_PORT = 8000;
+const HTTP_PORT = process.env.PORT || 8000;
 // Start server
 app.listen(HTTP_PORT, () => {
   console.log("Server running on port %PORT%".replace("%PORT%", HTTP_PORT));

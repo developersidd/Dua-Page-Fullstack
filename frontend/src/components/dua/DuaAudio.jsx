@@ -69,7 +69,7 @@ const DuaAudio = ({ audioSrc }) => {
                 max={duration}
                 value={currentTime}
                 onChange={handleSeek}
-                className={` bg-no-repeat bg-gradient-to-t  from-primary to-primary w-18 h-[6px]  bg-gray-300 rounded-lg appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[15px] [&::-webkit-slider-thumb]:w-[15px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary`}
+                className={`bg-no-repeat bg-gradient-to-t  from-primary to-primary w-18 h-[6px]  bg-gray-300 rounded-lg appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-[15px]  [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary`}
                 style={{
                   backgroundSize: `${(currentTime / duration) * 100}% 100%`,
                 }}

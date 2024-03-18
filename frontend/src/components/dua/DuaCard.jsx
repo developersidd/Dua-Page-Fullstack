@@ -1,4 +1,5 @@
 import Icon from "../common/Icon";
+import DuaAction from "./DuaAction";
 import DuaAudio from "./DuaAudio";
 const bottomIcons = ["copy", "bookmark", "memorize", "share", "report"];
 
@@ -16,8 +17,9 @@ const DuaCard = ({ dua }) => {
     dua_indopak,
     translation_en,
   } = dua || {};
+
   return (
-    <article className="w-full bg-white rounded-xl p-7">
+    <article id={`dua-${id}`} className="w-full bg-white rounded-xl p-7">
       <div className="flex items-center gap-3 mb-5">
         <Icon classes={"size-10"} alt={"dua-card"} name={"duacard.svg"} />
         {/* dua_name_en */}
@@ -58,19 +60,18 @@ const DuaCard = ({ dua }) => {
       </div>
       <div className="flex items-center justify-between">
         <DuaAudio audioSrc={audio} />
-        <div className="flex items-center gap-8">
-          {/* bottomIcons */}
-          {bottomIcons.map((icon) => (
-            <button key={icon}>
-              <Icon
-                classes={"size-6"}
-                key={icon}
-                alt={icon}
-                name={`${icon}.svg`}
-              />
-            </button>
-          ))}
-        </div>
+        <DuaAction
+          dua={{
+            id,
+            cat_id,
+            subcat_id,
+            dua_name_en,
+            top_en,
+            dua_indopak,
+            translation_en,
+            bottom_en,
+          }}
+        />
       </div>
     </article>
   );

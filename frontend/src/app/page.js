@@ -7,7 +7,7 @@ import DuaProvider from "@/providers/DuaProvider";
 
 export default function Home() {
   return (
-    <main className="bg-secondary py-14 px-10 grid grid-cols-[100px,350px,1fr,300px] grid-rows-[46px,1fr] fixed gap-x-7 gap-y-5">
+    <main className="bg-secondary scroll-smooth py-14 px-10 grid grid-cols-[100px,350px,1fr,300px] grid-rows-[46px,1fr] fixed gap-x-7 gap-y-5">
       <section className="col-start-2 col-span-3 row-span-1">
         <Header />
       </section>

@@ -1,15 +1,12 @@
 import { actions } from "@/actions";
 import useDuaContext from "@/hooks/useDuaContext";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Icon from "../common/Icon";
 import SubcategoryList from "./subcategories/SubcategoryList";
 const { FETCHED_DUA, FETCHING_DUA, FETCHING_DUA_ERROR, CLEAR_DUA } = actions;
 const CategoryItem = ({ category, onActive, isActive }) => {
-  const { dispatch, state } = useDuaContext();
-  //console.log("state:", state.duas);
-  const router = useRouter();
+  const { dispatch } = useDuaContext();
   const { cat_id, cat_name_en, cat_icon, no_of_subcat, no_of_dua } =
     category || {};
   const [subcategories, setSubcategories] = useState([]);
@@ -58,11 +55,7 @@ const CategoryItem = ({ category, onActive, isActive }) => {
       <Link
         onClick={() => onActive(cat_id)}
         key={cat_id}
-        href={`/?cat_name=${cat_name_en
-          ?.toLowerCase()
-          ?.trim()
-          ?.split(" ")
-          ?.join("-")}&cat_id=${cat_id}`}
+        href={`/?cat_id=${cat_id}`}
         className={`${
           isActive ? "bg-[#E8F0F5]" : ""
         }  hover:bg-[#E8F0F5] block rounded-lg cursor-pointer`}

@@ -4,7 +4,6 @@ import DuaCard from "./DuaCard";
 
 const DuaList = () => {
   const { state: { duas } = {} } = useDuaContext();
-  //console.log("duas:", duas)
   return (
     <div className="space-y-5">
       {duas.map((dua) => (
