@@ -1,13 +1,21 @@
 "use client";
+import useDebounce from "@/hooks/useDebounce";
 import CategoryLoadingSkeleton from "@/ui/CategoryLoadingSkeleton";
 import { useEffect, useState } from "react";
 import Icon from "../common/Icon";
 import CategoryList from "./CategoryList";
 
 const Categories = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const filteredData = data.data?.filter((category) =>
+    category?.cat_name_en?.toLowerCase()?.includes(searchTerm.toLowerCase())
+  );
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const debounceHandler = useDebounce((value) => {
+    setSearchTerm(value);
+  });
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
   }, []);
@@ -39,10 +47,16 @@ const Categories = () => {
           ))}
       </div>
     );
-  } else if (!loading && error) {
+  } else if (searchTerm && filteredData?.length === 0) {
+    content = (
+      <div className="text-center p-4">
+        No data found with: <span className="text-primary"> {searchTerm} </span>
+      </div>
+    );
+  } else if (error) {
     content = <div> {error.message}</div>;
-  } else if (!loading && !error && data.data?.length > 0) {
-    content = <CategoryList categories={data.data} />;
+  } else if (!error && filteredData?.length > 0) {
+    content = <CategoryList categories={filteredData} />;
   }
 
   return (
@@ -59,6 +73,7 @@ const Categories = () => {
             placeholder="Search By Dua Name"
             className="w-full h-full outline-none border-none p-4 text-sm"
             type="text"
+            onChange={(e) => debounceHandler(e.target.value)}
             name=""
             id=""
           />

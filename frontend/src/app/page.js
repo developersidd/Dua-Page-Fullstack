@@ -3,7 +3,6 @@ import Categories from "@/components/categories/Categories";
 import DuaList from "@/components/dua/DuaList";
 import Settings from "@/components/settting/Settings";
 import Sidebar from "@/components/sidebar/Sidebar";
-import DuaProvider from "@/providers/DuaProvider";
 
 export default function Home() {
   return (
@@ -14,15 +13,14 @@ export default function Home() {
       <section className="row-start-1 row-span-2 h-[calc(100vh-85px)] overflow-y-auto">
         <Sidebar />
       </section>
-      <DuaProvider>
-        <section className="h-[calc(100vh-146px)]  bg-white rounded-xl">
-          <Categories />
-        </section>
 
-        <section className="h-[calc(100vh-100px)] overflow-y-auto pb-12 w-[calc(100vw-915px)]">
-          <DuaList />
-        </section>
-      </DuaProvider>
+      <section className="h-[calc(100vh-146px)]  bg-white rounded-xl">
+        <Categories />
+      </section>
+
+      <section className="h-[calc(100vh-100px)] overflow-y-auto pb-12 w-[calc(100vw-915px)]">
+        <DuaList />
+      </section>
 
       <section className="h-[calc(100vh-146px)]">
         <Settings />

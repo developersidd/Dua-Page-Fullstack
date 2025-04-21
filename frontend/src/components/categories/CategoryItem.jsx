@@ -1,39 +1,21 @@
-import { actions } from "@/actions";
-import useDuaContext from "@/hooks/useDuaContext";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Icon from "../common/Icon";
 import SubcategoryList from "./subcategories/SubcategoryList";
-const { FETCHED_DUA, FETCHING_DUA, FETCHING_DUA_ERROR, CLEAR_DUA } = actions;
+
 const CategoryItem = ({ category, onActive, isActive }) => {
-  const { dispatch } = useDuaContext();
   const { cat_id, cat_name_en, cat_icon, no_of_subcat, no_of_dua } =
     category || {};
   const [subcategories, setSubcategories] = useState([]);
+  const [duas, setDuas] = useState([]);
   useEffect(() => {
     // Fetch dua by category and subcategory when category is active
     if (isActive) {
-      handleFetchDuaByCategory();
       handleFetchSubcategory();
+      handleFetchDuaByCategory();
     }
-    return () => {
-      dispatch({ type: CLEAR_DUA });
-    };
   }, [isActive]);
-  // Fetch dua by category
-  const handleFetchDuaByCategory = async () => {
-    dispatch({ type: FETCHING_DUA });
-    try {
-      const res = await fetch(`http://localhost:8000/api/v1/dua/${cat_id}`);
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await res.json();
-      dispatch({ type: FETCHED_DUA, payload: data.data });
-    } catch (error) {
-      dispatch({ type: FETCHING_DUA_ERROR, payload: error.message });
-    }
-  };
+
   // Fetch subcategory
   const handleFetchSubcategory = async () => {
     try {
@@ -50,6 +32,19 @@ const CategoryItem = ({ category, onActive, isActive }) => {
     }
   };
 
+  // Fetch dua by category
+  const handleFetchDuaByCategory = async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/api/v1/dua/${cat_id}`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await res.json();
+      setDuas(data.data);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
   return (
     <>
       <Link
@@ -58,7 +53,7 @@ const CategoryItem = ({ category, onActive, isActive }) => {
         href={`/?cat_id=${cat_id}`}
         className={`${
           isActive ? "bg-[#E8F0F5]" : ""
-        }  hover:bg-[#E8F0F5] block rounded-lg cursor-pointer`}
+        }  hover:bg-[#E8F0F5] block rounded-lg cursor-pointer group/card`}
       >
         <div className="flex justify-between items-center px-4 py-3">
           <div className="flex justify-between items-center gap-2">
@@ -77,7 +72,7 @@ const CategoryItem = ({ category, onActive, isActive }) => {
           <div
             className={`text-center ${
               isActive ? "" : "border-l"
-            }  pl-3 border-gray-300 `}
+            }  pl-3 border-gray-300 group-hover/card:border-l-0`}
           >
             <h5>{no_of_dua}</h5>
             <small className="text-gray-500">Duas</small>
@@ -85,7 +80,7 @@ const CategoryItem = ({ category, onActive, isActive }) => {
         </div>
       </Link>
       {subcategories?.length > 0 && isActive && (
-        <SubcategoryList subcategories={subcategories} />
+        <SubcategoryList duas={duas} subcategories={subcategories} />
       )}
     </>
   );

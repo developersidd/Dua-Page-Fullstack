@@ -8,19 +8,16 @@ const DuaAudio = ({ audioSrc }) => {
   const [play, setPlay] = useState(false);
   useEffect(() => {
     const audio = audioRef.current;
-
+    // Update the time as the audio plays
     const updateTime = () => {
       setCurrentTime(audio.currentTime);
       setDuration(audio.duration);
-      console.log(
-        "audio.currentTime === audio.duration:",
-        audio.currentTime === audio.duration
-      );
+      // If the audio has finished playing, set the play state to false
       if (audio.currentTime === audio.duration) {
         setPlay(false);
       }
     };
-
+    // Add event listener to the audio element to update the time
     audio?.addEventListener("timeupdate", updateTime);
 
     return () => {
@@ -31,17 +28,13 @@ const DuaAudio = ({ audioSrc }) => {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
+    // Format the time in MM:SS
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
       2,
       "0"
     )}`;
   };
 
-  const handleSeek = (e) => {
-    const seekTime = e.target.value;
-    audioRef.current.currentTime = seekTime;
-    setCurrentTime(seekTime);
-  };
   const handlePlayPause = () => {
     setPlay(!play);
     if (play) {
@@ -56,6 +49,7 @@ const DuaAudio = ({ audioSrc }) => {
         <div className="flex items-center gap-5">
           <button className="outline-none" onClick={handlePlayPause}>
             <Icon
+              alt={"audiobtn"}
               classes={"size-10"}
               name={`${!play ? "audiobtn" : "pause"}.svg`}
             />
@@ -64,11 +58,11 @@ const DuaAudio = ({ audioSrc }) => {
           {play && (
             <>
               <input
+                step="0.01"
                 type="range"
                 min={0}
                 max={duration}
                 value={currentTime}
-                onChange={handleSeek}
                 className={`bg-no-repeat bg-gradient-to-t  from-primary to-primary w-18 h-[6px]  bg-gray-300 rounded-lg appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-[15px]  [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary`}
                 style={{
                   backgroundSize: `${(currentTime / duration) * 100}% 100%`,

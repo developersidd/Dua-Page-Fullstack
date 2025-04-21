@@ -1,10 +1,36 @@
 "use client";
-import useDuaContext from "@/hooks/useDuaContext";
 import DuaCardSkeleton from "@/ui/DuaCardSkeleton";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import DuaCard from "./DuaCard";
 
 const DuaList = () => {
-  const { state: { duas, loading, error } = {} } = useDuaContext();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const searchParams = useSearchParams();
+  const cat_id = searchParams.get("cat_id");
+  const [duas, setDuas] = useState([]);
+  useEffect(() => {
+    // Fetch dua by category
+    const handleFetchDuaByCategory = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`http://localhost:8000/api/v1/dua/${cat_id}`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await res.json();
+        setDuas(data?.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (cat_id) {
+      handleFetchDuaByCategory();
+    }
+  }, [cat_id]);
   // decide what to render
   let content;
   if (loading) {
@@ -21,6 +47,8 @@ const DuaList = () => {
     content = <div> {error.message}</div>;
   } else if (!loading && !error && duas?.length > 0) {
     content = duas.map((dua) => <DuaCard key={dua.id} dua={dua} />);
+  } else if (!loading && !error && !duas?.length) {
+    content = <div> No Dua Found </div>;
   }
   return <div className="space-y-5">{content}</div>;
 };
