@@ -20,7 +20,7 @@ const CategoryItem = ({ category, onActive, isActive }) => {
   const handleFetchSubcategory = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8000/api/v1/subcategory/${cat_id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/subcategory/${cat_id}`
       );
       if (!res.ok) {
         throw new Error("Failed to fetch data");
@@ -35,7 +35,9 @@ const CategoryItem = ({ category, onActive, isActive }) => {
   // Fetch dua by category
   const handleFetchDuaByCategory = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/dua/${cat_id}`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/dua/${cat_id}`
+      );
       if (!res.ok) {
         throw new Error("Failed to fetch data");
       }

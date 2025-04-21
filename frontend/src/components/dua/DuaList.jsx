@@ -15,7 +15,9 @@ const DuaList = () => {
     const handleFetchDuaByCategory = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:8000/api/v1/dua/${cat_id}`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/dua/${cat_id}`
+        );
         if (!res.ok) {
           throw new Error("Failed to fetch data");
         }

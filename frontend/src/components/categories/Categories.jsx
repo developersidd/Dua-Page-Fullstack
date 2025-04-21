@@ -23,7 +23,9 @@ const Categories = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/api/v1/category");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/category`
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
